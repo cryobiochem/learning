@@ -1,0 +1,22 @@
+# Registo iniciado 2018-07-21 10:51
+# Registo dos comandos da sess√£o.  Note que provavelmente
+# ter√° que ser editado se pretender executar como script.
+open \
+  "C:\Users\Bruno\OneDrive - campus.fct.unl.pt\Deals & Bundles\Data Science A-Zô (UDEMY) Files\PART 2. MODELLING\Section 5. Building a Robust Geodemographic Segmentation Model\Churn-Modelling.csv"
+dummify Gender
+dummify Geography
+rename 17 France
+rename 18 Spain
+rename 19 Germany
+rename 15 Female
+rename 16 Male
+Log_Balance = log10(Balance +1)
+# modelo 1
+logit Exited 0 CreditScore Age Tenure NumOfProducts IsActiveMember Female \
+  Germany Log_Balance
+fcast 1 10000 --static
+# modelo 1
+fcast 1 10000 P_hat
+# store \
+  "C:\Users\Bruno\OneDrive - campus.fct.unl.pt\Deals & Bundles\Data Science A-Zô (UDEMY) Files\PART 2. MODELLING\Section 6. Assessing Your Model\Churn-Modelling - Forecast.csv" \
+   RowNumber Exited P_hat --csv
